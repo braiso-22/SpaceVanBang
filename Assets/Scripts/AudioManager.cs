@@ -13,8 +13,6 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        existeVolumen();
-
         foreach (Sound s in sonidos)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -32,15 +30,5 @@ public class AudioManager : MonoBehaviour
     {
         audioMixer.SetFloat(audioMixerName, volumen);
         PlayerPrefs.SetFloat(audioMixerName, volumen);
-    }
-    private void existeVolumen()
-    {
-        if (PlayerPrefs.GetInt("master") == 1)
-        {
-            return;
-        }
-        PlayerPrefs.SetInt("master", 0);
-        audioMixer.SetFloat(audioMixerName, -32f);
-
     }
 }
