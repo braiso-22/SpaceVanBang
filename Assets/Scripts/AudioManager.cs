@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip[] sonidos;
+    public Sound[] sonidos;
     public AudioSource reproductorAudio;
 
-    void playSound(int i)
+    public void playSound(int i)
     {
         if (i >= sonidos.Length)
         {
@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            reproductorAudio.PlayOneShot(sonidos[i]);
+            reproductorAudio.PlayOneShot(sonidos[i].sound);
         }
     }
 }

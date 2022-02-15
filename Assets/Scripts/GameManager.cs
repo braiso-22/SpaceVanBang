@@ -1,29 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager gameInstance;
-    private AudioManager reproductor;
     private GameManager() { }
-    void Start()
+
+    
+    public void changeToScene(int num)
     {
-        gameInstance = getGameInstance();
-        reproductor = gameObject.AddComponent<AudioManager>();
+        SceneManager.LoadScene(num);
     }
-    public GameManager getGameInstance()
+    public void exitGame()
     {
-        if (gameInstance != null)
-        {
-            return gameInstance;
-        }
-
-        return gameObject.AddComponent<GameManager>();
-    }
-
-    void Update()
-    {
-
+        Application.Quit();
     }
 }
