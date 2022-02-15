@@ -1,21 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sonidos;
-    public AudioSource reproductorAudio;
+    public AudioMixer audioMixer;
+    public string audioMixerName;
 
-    public void playSound(int i)
+
+    void Awake()
     {
-        if (i >= sonidos.Length)
+        existeVolumen();
+
+        foreach (Sound s in sonidos)
         {
-            Debug.Log("Ese sonido no está en la lista");
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.sound;
+            s.source.outputAudioMixerGroup = s.grupoSonido;
+
+            s.source.PlayOneShot(s.sound, 1f);
         }
-        else
+    }
+    public void Play(string name)
+    {
+        Sound s = Array.Find(sonidos, sound => sound.name == name);
+    }
+    public void cambiarVolumen(float volumen)
+    {
+        audioMixer.SetFloat(audioMixerName, volumen);
+        PlayerPrefs.SetFloat(audioMixerName, volumen);
+    }
+    private void existeVolumen()
+    {
+        if (PlayerPrefs.GetInt("master") == 1)
         {
-            reproductorAudio.PlayOneShot(sonidos[i].sound);
+            return;
         }
+        PlayerPrefs.SetInt("master", 0);
+        audioMixer.SetFloat(audioMixerName, -32f);
+
     }
 }
