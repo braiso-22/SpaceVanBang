@@ -12,7 +12,12 @@ public class GameManager : MonoBehaviour
 
     public void changeToScene(int num)
     {
-        
+
+        StartCoroutine(changeRoutine(num));
+    }
+    IEnumerator changeRoutine(int num)
+    {
+        yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(num);
     }
     public void exitGame()
