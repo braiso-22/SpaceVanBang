@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public void changeToScene(int num)
     {
+        
         SceneManager.LoadScene(num);
     }
     public void exitGame()
