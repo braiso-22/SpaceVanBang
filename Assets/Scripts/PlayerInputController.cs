@@ -51,7 +51,7 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                     ""name"": """",
                     ""id"": ""1b03f94a-ae86-4830-9125-416a26eee932"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Saltar"",

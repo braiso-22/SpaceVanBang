@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     private PlayerInputController playerInput;
     private Rigidbody rb;
     private float playerSpeed = 6;
-    private float jumpForce = 1000000;
-    private float jumpSpeed = 6;
+    private float jumpForce = 100000;
+    private float jumpSpeed = 20;
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private void Saltar()
     {
         Debug.Log("jumpSpeed");
-        rb.AddForce(Vector3.up * jumpForce * jumpSpeed * Time.deltaTime);
+        rb.AddForce(transform.up * jumpForce * jumpSpeed * Time.fixedDeltaTime);
     }
     // Update is called once per frame
     void Update()
