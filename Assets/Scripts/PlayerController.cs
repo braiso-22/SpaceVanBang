@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
 
     private void Saltar()
     {
-        Debug.Log("jumpSpeed");
         rb.AddForce(transform.up * jumpForce * jumpSpeed * Time.fixedDeltaTime);
     }
     // Update is called once per frame
@@ -46,5 +45,7 @@ public class PlayerController : MonoBehaviour
         // Efectua el movimiento
         Vector3 movi = new Vector3(movementInput.x, 0, movementInput.y);
         transform.Translate(movi * Time.deltaTime * playerSpeed);
+
+        // TODO cambiar el giro al pulsar WASD
     }
 }
