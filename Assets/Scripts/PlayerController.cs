@@ -5,47 +5,51 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private PlayerInputController playerInput;
+    private Vector2 input;
+    private float walkSpeed = 5f;
+    private float runSpeed = 10f;
+    private float rotateSpeed = 900f;
     private Rigidbody rb;
-    private float playerSpeed = 6;
-    private float jumpForce = 100000;
-    private float jumpSpeed = 20;
 
-    private void Awake()
+    // Use this for initialization
+    void Awake()
     {
         playerInput = new PlayerInputController();
-        rb = gameObject.GetComponent<Rigidbody>();
-        Debug.Log(rb);
+        rb = GetComponent<Rigidbody>();
+
     }
 
-    private void OnEnable()
+    // OnEnable and OnDisable methods are called when the gameObject is enabled and disabled
+    void OnEnable()
     {
+        // Subscribe to the events of the player input controller
         playerInput.Enable();
     }
-    private void OnDisable()
+
+    void OnDisable()
     {
+        // Unsubscribe from the events of the player input controller
         playerInput.Disable();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerInput.Suelo.Saltar.performed += _ => Saltar();
-    }
 
-    private void Saltar()
-    {
-        rb.AddForce(transform.up * jumpForce * jumpSpeed * Time.fixedDeltaTime);
-    }
     // Update is called once per frame
     void Update()
     {
-        // Lee el input de movimiento y lo printea por debug
-        Vector2 movementInput = playerInput.Suelo.Mover.ReadValue<Vector2>();
-        Debug.Log(movementInput);
-
-        // Efectua el movimiento
-        Vector3 movi = new Vector3(movementInput.x, 0, movementInput.y);
-        transform.Translate(movi * Time.deltaTime * playerSpeed);
-
-        // TODO cambiar el giro al pulsar WASD
+        input = playerInput.Suelo.Mover.ReadValue<Vector2>();
+        move();
     }
+
+    void move()
+    {
+
+        Vector3 direction = transform.forward * input.y;
+        rb.MovePosition(rb.position + direction * (runSpeed * Time.deltaTime));
+
+        Quaternion rightDirection = Quaternion.Euler(0f, input.x * (rotateSpeed * Time.fixedDeltaTime), 0f);
+        Quaternion newRotation = Quaternion.Slerp(rb.rotation, rb.rotation * rightDirection, Time.fixedDeltaTime * 3f); ;
+        rb.MoveRotation(newRotation);
+
+    }
+
+
 }
