@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private float runSpeed = 10f;
     private float rotateSpeed = 1800f;
     private Rigidbody rb;
+    Vector3 referenceVel = Vector3.zero;
 
     // Use this for initialization
     void Awake()
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
         playerInput = new PlayerInputController();
         rb = GetComponent<Rigidbody>();
         playerInput.Suelo.Saltar.performed += _ => jump();
+        playerInput.Suelo.Saltar.canceled += _ => stopJump();
 
     }
 
@@ -42,32 +44,42 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         move();
-        jump();
     }
 
     void move()
     {
-
         Vector3 direction = transform.forward * moveInput.y;
-        rb.MovePosition(rb.position + direction * (runSpeed * Time.deltaTime));
+        // add force to the rigidbody in the direction of the player's forward vector
+        rb.AddForce(direction * walkSpeed * 500f, ForceMode.Force);
 
         Quaternion rightDirection = Quaternion.Euler(0f, moveInput.x * (rotateSpeed * Time.fixedDeltaTime), 0f);
         Quaternion newRotation = Quaternion.Slerp(rb.rotation, rb.rotation * rightDirection, Time.fixedDeltaTime * 3f); ;
         rb.MoveRotation(newRotation);
 
+        // Vector3 targetVelocity = new Vector2(moveInput.y * 10f, rb.velocity.z);
+        // rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref referenceVel, 0.05f);
+
+
+        // block velocity if the player is not pressing any movement keys
+        if (isGrounded() && moveInput.x == 0 && moveInput.y == 0)
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
     void jump()
     {
         if (isGrounded())
         {
-            rb.AddForce(Vector3.up * 1000f, ForceMode.Impulse);
+            rb.AddForce(rb.transform.up * 1000f, ForceMode.Impulse);
         }
-
+    }
+    void stopJump()
+    {
+        rb.AddForce(rb.transform.up * -1000f, ForceMode.Impulse);
     }
     bool isGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, 1.1f);
+        return Physics.Raycast(transform.position, -rb.transform.up, 1.2f);
     }
-
 
 }
