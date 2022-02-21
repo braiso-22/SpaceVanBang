@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         input = playerInput.Suelo.Mover.ReadValue<Vector2>();
+
+    }
+    void FixedUpdate()
+    {
         move();
     }
 
