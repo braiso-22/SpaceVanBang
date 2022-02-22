@@ -6,10 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerInputController playerInput;
     private Vector2 moveInput;
-    private float walkSpeed = 5f;
+    [SerializeField] private float walkSpeed = 5f;
     private float runSpeed = 10f;
     private float rotateSpeed = 1800f;
     private Rigidbody rb;
+    public Transform groundCheck;
+    public float radiusCheck;
+    // variable de la layer de ground
+    public LayerMask groundLayer;
+    public float maxVelocity;
     Vector3 referenceVel = Vector3.zero;
 
     // Use this for initialization
@@ -18,7 +23,7 @@ public class PlayerController : MonoBehaviour
         playerInput = new PlayerInputController();
         rb = GetComponent<Rigidbody>();
         playerInput.Suelo.Saltar.performed += _ => jump();
-        playerInput.Suelo.Saltar.canceled += _ => stopJump();
+        //playerInput.Suelo.Saltar.canceled += _ => stopJump();
 
     }
 
@@ -52,6 +57,7 @@ public class PlayerController : MonoBehaviour
         // add force to the rigidbody in the direction of the player's forward vector
         rb.AddForce(direction * walkSpeed * 500f, ForceMode.Force);
 
+        // Rotacion calcula el vector de rotacion con el input y rota el rigidbody
         Quaternion rightDirection = Quaternion.Euler(0f, moveInput.x * (rotateSpeed * Time.fixedDeltaTime), 0f);
         Quaternion newRotation = Quaternion.Slerp(rb.rotation, rb.rotation * rightDirection, Time.fixedDeltaTime * 3f); ;
         rb.MoveRotation(newRotation);
@@ -65,6 +71,12 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
+
+        //block velocity to a max speed of 20
+        if (rb.velocity.magnitude > maxVelocity)
+        {
+            rb.velocity = rb.velocity.normalized * maxVelocity;
+        }
     }
     void jump()
     {
@@ -73,13 +85,13 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(rb.transform.up * 1000f, ForceMode.Impulse);
         }
     }
-    void stopJump()
+    /*void stopJump()
     {
         rb.AddForce(rb.transform.up * -1000f, ForceMode.Impulse);
-    }
+    }*/
     bool isGrounded()
     {
-        return Physics.Raycast(transform.position, -rb.transform.up, 1.2f);
+        return Physics.CheckSphere(groundCheck.position, radiusCheck, groundLayer);
     }
 
 }

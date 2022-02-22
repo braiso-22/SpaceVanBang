@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class GravityArea : MonoBehaviour
 {
     [SerializeField] private int _priority;
+    [SerializeField] private float _peso;
+    public float peso => _peso;
     public int Priority => _priority;
     
     void Start()
