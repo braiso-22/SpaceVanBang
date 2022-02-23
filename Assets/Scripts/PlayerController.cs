@@ -7,15 +7,17 @@ public class PlayerController : MonoBehaviour
     private PlayerInputController playerInput;
     private Vector2 moveInput;
     [SerializeField] private float walkSpeed = 5f;
-    private float runSpeed = 10f;
     private float rotateSpeed = 1800f;
     private Rigidbody rb;
-    public Transform groundCheck;
-    public float radiusCheck;
-    // variable de la layer de ground
-    public LayerMask groundLayer;
+
     public float maxVelocity;
     Vector3 referenceVel = Vector3.zero;
+    
+    [Header("Checkeo de suelo")]
+    public Transform groundCheck;
+    public float radiusCheck;
+    public LayerMask groundLayer;
+
 
     // Use this for initialization
     void Awake()
