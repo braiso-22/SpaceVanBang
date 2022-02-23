@@ -6,11 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerInputController playerInput;
     private Vector2 moveInput;
+    [Header("Velocidades")]
     [SerializeField] private float walkSpeed = 5f;
-    private float rotateSpeed = 1800f;
+    public float maxVelocity=11f;
+    [SerializeField] private float rotateSpeed = 1800f;
     private Rigidbody rb;
 
-    public float maxVelocity;
+    
     Vector3 referenceVel = Vector3.zero;
     
     [Header("Checkeo de suelo")]
