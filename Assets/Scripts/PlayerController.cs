@@ -6,19 +6,20 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerInputController playerInput;
     private Vector2 moveInput;
+    private float flyInput;
+
     [Header("Velocidades")]
     [SerializeField] private float walkSpeed = 5f;
-    public float maxVelocity=11f;
+    public float maxVelocity = 11f;
     [SerializeField] private float rotateSpeed = 1800f;
     private Rigidbody rb;
-
-    
     Vector3 referenceVel = Vector3.zero;
-    
+
     [Header("Checkeo de suelo")]
     public Transform groundCheck;
     public float radiusCheck;
     public LayerMask groundLayer;
+    public bool onGravity;
 
 
     // Use this for initialization
@@ -48,34 +49,39 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveInput = playerInput.Suelo.Mover.ReadValue<Vector2>();
-
+        flyInput = playerInput.SinGravedad.Propulsar.ReadValue<float>();
     }
     void FixedUpdate()
     {
         move();
     }
-
     void move()
     {
-        Vector3 direction = transform.forward * moveInput.y;
+        if (onGravity)
+        {
+            flyInput = 0f;
+            maxVelocity = 11f;
+        }
+        else
+        {
+            maxVelocity = 5f;
+        }
+
+        Vector3 forwardDirection = transform.forward * moveInput.y;
+        Vector3 upDirection = transform.up * flyInput;
         // add force to the rigidbody in the direction of the player's forward vector
-        rb.AddForce(direction * walkSpeed * 500f, ForceMode.Force);
+        rb.AddForce(forwardDirection * walkSpeed * 500f, ForceMode.Force);
+        rb.AddForce(upDirection * walkSpeed * 500f, ForceMode.Force);
 
         // Rotacion calcula el vector de rotacion con el input y rota el rigidbody
         Quaternion rightDirection = Quaternion.Euler(0f, moveInput.x * (rotateSpeed * Time.fixedDeltaTime), 0f);
         Quaternion newRotation = Quaternion.Slerp(rb.rotation, rb.rotation * rightDirection, Time.fixedDeltaTime * 3f); ;
         rb.MoveRotation(newRotation);
-
-        // Vector3 targetVelocity = new Vector2(moveInput.y * 10f, rb.velocity.z);
-        // rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref referenceVel, 0.05f);
-
-
         // block velocity if the player is not pressing any movement keys
         if (isGrounded() && moveInput.x == 0 && moveInput.y == 0)
         {
             rb.velocity = Vector3.zero;
         }
-
         //block velocity to a max speed of 20
         if (rb.velocity.magnitude > maxVelocity)
         {
@@ -89,13 +95,25 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(rb.transform.up * 1000f, ForceMode.Impulse);
         }
     }
-    /*void stopJump()
-    {
-        rb.AddForce(rb.transform.up * -1000f, ForceMode.Impulse);
-    }*/
     bool isGrounded()
     {
         return Physics.CheckSphere(groundCheck.position, radiusCheck, groundLayer);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("gravity"))
+        {
+            onGravity = true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("gravity"))
+        {
+            onGravity = false;
+        }
+    }
+
 
 }

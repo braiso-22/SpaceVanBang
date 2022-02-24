@@ -6,6 +6,7 @@ TagManager:
   tags:
   - musica
   - cameraTarget
+  - gravity
   layers:
   - Default
   - TransparentFX

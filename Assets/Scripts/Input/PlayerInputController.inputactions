@@ -92,6 +92,56 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "SinGravedad",
+            "id": "8c54c582-45c2-4474-b273-df5747e71b9b",
+            "actions": [
+                {
+                    "name": "Propulsar",
+                    "type": "Button",
+                    "id": "ebe277fc-998a-4a1c-8d57-5c77f4527a75",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "vertical",
+                    "id": "4fac7848-edf6-4d76-a608-28bf65b1c960",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Propulsar",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "2a338c53-5174-49fe-9b53-33a37832a392",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Propulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "a3bd5123-4f08-45a3-be98-5b54ada8ae83",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Propulsar",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 1540427621}
   m_Layer: 0
   m_Name: AsteroideInicio
-  m_TagString: Untagged
+  m_TagString: gravity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

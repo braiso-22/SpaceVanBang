@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnGravedad : EstadoJugador
 {
-   // implementacion de metodos abstractos
+    // implementacion de metodos abstractos
     public override void manejarInput(PlayerController player, PlayerInputController input)
     {
         // no hace nada

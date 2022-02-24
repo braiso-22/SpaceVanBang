@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class EstadoJugador : MonoBehaviour
 {
+    protected static Flotando flotando;
+    protected static EnGravedad enGravedad;
     // constructor
     protected EstadoJugador() { }
-    static Flotando flotando;
-    static EnGravedad enGravedad;
 
     // abstract manejaInput
     public abstract void manejarInput(PlayerController player, PlayerInputController input);
