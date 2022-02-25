@@ -44,6 +44,15 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interactuar"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""d4ff4efc-a999-486f-a964-45ac99a5fb38"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                     ""action"": ""Mover"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bdae8e16-3cdd-462f-a089-eb4a049867c3"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interactuar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -172,6 +192,7 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
         m_Suelo = asset.FindActionMap("Suelo", throwIfNotFound: true);
         m_Suelo_Mover = m_Suelo.FindAction("Mover", throwIfNotFound: true);
         m_Suelo_Saltar = m_Suelo.FindAction("Saltar", throwIfNotFound: true);
+        m_Suelo_Interactuar = m_Suelo.FindAction("Interactuar", throwIfNotFound: true);
         // SinGravedad
         m_SinGravedad = asset.FindActionMap("SinGravedad", throwIfNotFound: true);
         m_SinGravedad_Propulsar = m_SinGravedad.FindAction("Propulsar", throwIfNotFound: true);
@@ -236,12 +257,14 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
     private ISueloActions m_SueloActionsCallbackInterface;
     private readonly InputAction m_Suelo_Mover;
     private readonly InputAction m_Suelo_Saltar;
+    private readonly InputAction m_Suelo_Interactuar;
     public struct SueloActions
     {
         private @PlayerInputController m_Wrapper;
         public SueloActions(@PlayerInputController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Mover => m_Wrapper.m_Suelo_Mover;
         public InputAction @Saltar => m_Wrapper.m_Suelo_Saltar;
+        public InputAction @Interactuar => m_Wrapper.m_Suelo_Interactuar;
         public InputActionMap Get() { return m_Wrapper.m_Suelo; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -257,6 +280,9 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                 @Saltar.started -= m_Wrapper.m_SueloActionsCallbackInterface.OnSaltar;
                 @Saltar.performed -= m_Wrapper.m_SueloActionsCallbackInterface.OnSaltar;
                 @Saltar.canceled -= m_Wrapper.m_SueloActionsCallbackInterface.OnSaltar;
+                @Interactuar.started -= m_Wrapper.m_SueloActionsCallbackInterface.OnInteractuar;
+                @Interactuar.performed -= m_Wrapper.m_SueloActionsCallbackInterface.OnInteractuar;
+                @Interactuar.canceled -= m_Wrapper.m_SueloActionsCallbackInterface.OnInteractuar;
             }
             m_Wrapper.m_SueloActionsCallbackInterface = instance;
             if (instance != null)
@@ -267,6 +293,9 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                 @Saltar.started += instance.OnSaltar;
                 @Saltar.performed += instance.OnSaltar;
                 @Saltar.canceled += instance.OnSaltar;
+                @Interactuar.started += instance.OnInteractuar;
+                @Interactuar.performed += instance.OnInteractuar;
+                @Interactuar.canceled += instance.OnInteractuar;
             }
         }
     }
@@ -308,6 +337,7 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
     {
         void OnMover(InputAction.CallbackContext context);
         void OnSaltar(InputAction.CallbackContext context);
+        void OnInteractuar(InputAction.CallbackContext context);
     }
     public interface ISinGravedadActions
     {

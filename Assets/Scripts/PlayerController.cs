@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public float radiusCheck;
     public LayerMask groundLayer;
     public bool onGravity;
-
+    
 
     // Use this for initialization
     void Awake()
@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour
         playerInput = new PlayerInputController();
         rb = GetComponent<Rigidbody>();
         playerInput.Suelo.Saltar.performed += _ => jump();
-        //playerInput.Suelo.Saltar.canceled += _ => stopJump();
-
     }
 
     // OnEnable and OnDisable methods are called when the gameObject is enabled and disabled

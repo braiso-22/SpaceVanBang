@@ -7,8 +7,35 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private GameManager() { }
+    
+    private static GameManager instance;
 
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<GameManager>();
+            }
+            return instance;
+        }
+    }
+
+    void onAwake(){
+        instance = this;
+        DontDestroyOnLoad(this);
+    }
+
+    [Header("Items")]
+    public int itemsToCollect;
+    [SerializeField] public int itemsCollected;
+    public bool hasItem;
+    public string lastItemName = "";
+
+    [Header("game")]
+    public bool hasWon;
+    public bool gameOver;
 
     public void changeToScene(int num)
     {
@@ -25,4 +52,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("salir");
         Application.Quit();
     }
+
+    public void restartGame()
+    {
+        Debug.Log("reiniciar");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void addItem()
+    {
+    }
+
 }
