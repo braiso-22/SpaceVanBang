@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "0c616f1a-79b5-4fb2-967c-d0d35cded556",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -38,7 +47,7 @@
                     "name": "",
                     "id": "1b03f94a-ae86-4830-9125-416a26eee932",
                     "path": "<Keyboard>/space",
-                    "interactions": "Tap(duration=0.3)",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Saltar",
@@ -104,10 +113,21 @@
                     "name": "",
                     "id": "bdae8e16-3cdd-462f-a089-eb4a049867c3",
                     "path": "<Keyboard>/e",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Interactuar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "45be4c3c-a7dd-4a76-a135-4566ae32af99",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

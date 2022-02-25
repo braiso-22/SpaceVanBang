@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
 
     public void changeToScene(int num)
     {
-
+        hasWon = false;
+        gameOver = false;
         StartCoroutine(changeRoutine(num));
     }
     IEnumerator changeRoutine(int num)
@@ -57,10 +58,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("reiniciar");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void addItem()
-    {
     }
 
 }

@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
         playerInput.Suelo.Saltar.performed += _ => jump();
     }
 
+    
+
     // OnEnable and OnDisable methods are called when the gameObject is enabled and disabled
     void OnEnable()
     {

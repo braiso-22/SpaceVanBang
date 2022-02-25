@@ -53,6 +53,15 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c616f1a-79b5-4fb2-967c-d0d35cded556"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -60,7 +69,7 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                     ""name"": """",
                     ""id"": ""1b03f94a-ae86-4830-9125-416a26eee932"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Tap(duration=0.3)"",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Saltar"",
@@ -126,10 +135,21 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                     ""name"": """",
                     ""id"": ""bdae8e16-3cdd-462f-a089-eb4a049867c3"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interactuar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45be4c3c-a7dd-4a76-a135-4566ae32af99"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -193,6 +213,7 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
         m_Suelo_Mover = m_Suelo.FindAction("Mover", throwIfNotFound: true);
         m_Suelo_Saltar = m_Suelo.FindAction("Saltar", throwIfNotFound: true);
         m_Suelo_Interactuar = m_Suelo.FindAction("Interactuar", throwIfNotFound: true);
+        m_Suelo_Menu = m_Suelo.FindAction("Menu", throwIfNotFound: true);
         // SinGravedad
         m_SinGravedad = asset.FindActionMap("SinGravedad", throwIfNotFound: true);
         m_SinGravedad_Propulsar = m_SinGravedad.FindAction("Propulsar", throwIfNotFound: true);
@@ -258,6 +279,7 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
     private readonly InputAction m_Suelo_Mover;
     private readonly InputAction m_Suelo_Saltar;
     private readonly InputAction m_Suelo_Interactuar;
+    private readonly InputAction m_Suelo_Menu;
     public struct SueloActions
     {
         private @PlayerInputController m_Wrapper;
@@ -265,6 +287,7 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
         public InputAction @Mover => m_Wrapper.m_Suelo_Mover;
         public InputAction @Saltar => m_Wrapper.m_Suelo_Saltar;
         public InputAction @Interactuar => m_Wrapper.m_Suelo_Interactuar;
+        public InputAction @Menu => m_Wrapper.m_Suelo_Menu;
         public InputActionMap Get() { return m_Wrapper.m_Suelo; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,6 +306,9 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                 @Interactuar.started -= m_Wrapper.m_SueloActionsCallbackInterface.OnInteractuar;
                 @Interactuar.performed -= m_Wrapper.m_SueloActionsCallbackInterface.OnInteractuar;
                 @Interactuar.canceled -= m_Wrapper.m_SueloActionsCallbackInterface.OnInteractuar;
+                @Menu.started -= m_Wrapper.m_SueloActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_SueloActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_SueloActionsCallbackInterface.OnMenu;
             }
             m_Wrapper.m_SueloActionsCallbackInterface = instance;
             if (instance != null)
@@ -296,6 +322,9 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                 @Interactuar.started += instance.OnInteractuar;
                 @Interactuar.performed += instance.OnInteractuar;
                 @Interactuar.canceled += instance.OnInteractuar;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
             }
         }
     }
@@ -338,6 +367,7 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
         void OnMover(InputAction.CallbackContext context);
         void OnSaltar(InputAction.CallbackContext context);
         void OnInteractuar(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
     public interface ISinGravedadActions
     {
