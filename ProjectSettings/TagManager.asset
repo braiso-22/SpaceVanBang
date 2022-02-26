@@ -8,6 +8,7 @@ TagManager:
   - cameraTarget
   - gravity
   - item
+  - AsteroideMediano
   layers:
   - Default
   - TransparentFX

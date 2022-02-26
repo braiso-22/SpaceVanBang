@@ -30,6 +30,13 @@ public class PlayerController : MonoBehaviour
         playerInput.Suelo.Saltar.performed += _ => jump();
     }
 
+    // Start
+    void Start()
+    {
+        // set position to the position of the game object with name "AsteroideInicio"
+        transform.position = GameObject.Find("AsteroideInicio").transform.position+new Vector3(-2,10,0);
+    }
+
     
 
     // OnEnable and OnDisable methods are called when the gameObject is enabled and disabled

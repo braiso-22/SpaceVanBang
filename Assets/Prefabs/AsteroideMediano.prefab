@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8755286446463935090}
   - component: {fileID: 345193208769106398}
   - component: {fileID: 777693488750283458}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 6347564073650116816}
   m_Layer: 0
   m_Name: AsteroideMediano
-  m_TagString: Untagged
+  m_TagString: AsteroideMediano
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
