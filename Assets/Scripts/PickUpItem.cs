@@ -41,6 +41,11 @@ public class PickUpItem : MonoBehaviour
                 GameManager.Instance.hasWon = true;
                 Debug.Log("has ganado");
             }
+        }else if(item != null && GameManager.Instance.hasItem)
+        {
+            Debug.Log("Ya tienes un item");
+        }else{
+            Debug.Log("No hay nada");
         }
     }
     void OnTriggerEnter(Collider collider)

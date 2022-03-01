@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2569578416075759829}
   - component: {fileID: 2569578416075759830}
   - component: {fileID: 1301036926506095714}
+  - component: {fileID: -726674281449705260}
+  - component: {fileID: -4811615608964404706}
   m_Layer: 0
   m_Name: AsteroidePeque
   m_TagString: Untagged
@@ -27,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2569578416075759825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.77258, y: 10.52, z: -193.44398}
+  m_LocalPosition: {x: 27.87, y: 10.52, z: -193.44398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8187168932705927358}
@@ -96,6 +98,35 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.3325522
   m_Center: {x: 0, y: -0.000000059604645, z: 0}
+--- !u!114 &-726674281449705260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569578416075759825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f98843b176c0a24aa5584cf81fee795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  samePosition: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &-4811615608964404706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569578416075759825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89aebfa6973b9264da12587a428fdd2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vel: 3
 --- !u!1 &8187168932705927357
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +141,7 @@ GameObject:
   - component: {fileID: 8187168932705927359}
   - component: {fileID: 8187168932705927298}
   m_Layer: 0
-  m_Name: roca
+  m_Name: Campo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +176,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8187168932705927357}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
