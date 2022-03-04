@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PickUpItem : MonoBehaviour
 {
+    public GameObject almacen;
+    private bool enAlmacen;
     private PlayerInputController playerInput;
     private GameObject item;
 
@@ -28,23 +30,40 @@ public class PickUpItem : MonoBehaviour
     void interactuar()
     {
         Debug.Log("Interactuando");
-        if (item != null && !GameManager.Instance.hasItem)
+
+        if (enAlmacen && GameManager.Instance.hasItem)
+        {
+            GameManager.Instance.hasItem = false;
+            GameManager.Instance.itemsCollected++;
+            Debug.Log("Has recuperado" + GameManager.Instance.itemsCollected  +
+             "/" + GameManager.Instance.itemsToCollect);
+        }
+        else if (item != null && item.name.Equals("MochilaItem"))
+        {
+
+            // set hasPowerUp to true and destroy the item
+            Debug.Log("Mochila");
+            GameManager.Instance.hasPowerUp = true;
+            Destroy(item);
+            item = null;
+
+        }
+        else if (item != null && !GameManager.Instance.hasItem)
         {
             GameManager.Instance.hasItem = true;
             GameManager.Instance.lastItemName = item.name;
             Destroy(item);
-            GameManager.Instance.itemsCollected++;
-            Debug.Log("Has cogido el item" + GameManager.Instance.itemsCollected);
             item = null;
-            if (GameManager.Instance.itemsCollected == GameManager.Instance.itemsToCollect)
-            {
-                GameManager.Instance.hasWon = true;
-                Debug.Log("has ganado");
-            }
-        }else if(item != null && GameManager.Instance.hasItem)
+            Debug.Log("Has cogido" + (GameManager.Instance.itemsCollected + 1) +
+             "/" + GameManager.Instance.itemsToCollect);
+
+        }
+        else if (item != null && GameManager.Instance.hasItem)
         {
             Debug.Log("Ya tienes un item");
-        }else{
+        }
+        else
+        {
             Debug.Log("No hay nada");
         }
     }
@@ -52,8 +71,13 @@ public class PickUpItem : MonoBehaviour
     {
         if (collider.gameObject.tag == "item")
         {
-            Debug.Log("has tocado el item");
+            Debug.Log("has tocado el item: " + collider.gameObject.name);
             item = collider.gameObject;
+        }
+        if (collider.gameObject.tag == "Almacen")
+        {
+            Debug.Log("Tocando el almacen: " + collider.gameObject.name);
+            enAlmacen = true;
         }
     }
 
@@ -62,7 +86,12 @@ public class PickUpItem : MonoBehaviour
         if (collider.gameObject.tag == "item")
         {
             Debug.Log("has dejado el item");
-            item = null;
+
+        }
+        if (collider.gameObject.tag == "Almacen")
+        {
+            Debug.Log("Has dejado el almacen: " + collider.gameObject.name);
+            enAlmacen = false;
         }
     }
 }

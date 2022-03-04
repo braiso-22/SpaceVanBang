@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int itemsCollected;
     public bool hasItem;
     public string lastItemName = "";
+    [Header("PowerUps")]
+    public bool hasPowerUp;
 
     [Header("game")]
     public bool hasWon;
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         hasWon = false;
         gameOver = false;
+        hasPowerUp = false;
         StartCoroutine(changeRoutine(num));
     }
     IEnumerator changeRoutine(int num)

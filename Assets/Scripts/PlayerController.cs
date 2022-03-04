@@ -61,6 +61,13 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         move();
+        
+        // get component children of gameobject with name mochila 
+        foreach(Transform child in GameObject.Find("Mochila").transform.GetChild(0).transform){
+            // set child renderer to enabled
+            child.gameObject.GetComponent<Renderer>().enabled = GameManager.Instance.hasPowerUp;
+        }
+
     }
     void move()
     {
@@ -97,7 +104,7 @@ public class PlayerController : MonoBehaviour
     }
     void jump()
     {
-        if (isGrounded())
+        if (isGrounded() && GameManager.Instance.hasPowerUp)
         {
             rb.AddForce(rb.transform.up * 1000f, ForceMode.Impulse);
         }

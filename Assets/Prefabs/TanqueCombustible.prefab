@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5034740847527689703}
   - component: {fileID: 9174225451657587208}
   m_Layer: 0
-  m_Name: TanqueConvustible
+  m_Name: TanqueCombustible
   m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
