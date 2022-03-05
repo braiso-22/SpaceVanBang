@@ -124,7 +124,7 @@
                     "name": "",
                     "id": "45be4c3c-a7dd-4a76-a135-4566ae32af99",
                     "path": "<Keyboard>/escape",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Menu",

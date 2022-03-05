@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         playerInput = new PlayerInputController();
         rb = GetComponent<Rigidbody>();
         playerInput.Suelo.Saltar.performed += _ => jump();
+        playerInput.Suelo.Menu.performed += _ => GameManager.Instance.activarMenu();
     }
 
     // Start

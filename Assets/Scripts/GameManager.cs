@@ -7,25 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    
+
     private static GameManager instance;
 
-    public static GameManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = GameObject.FindObjectOfType<GameManager>();
-            }
-            return instance;
-        }
-    }
-
-    void onAwake(){
-        instance = this;
-        DontDestroyOnLoad(this);
-    }
 
     [Header("Items")]
     public int itemsToCollect;
@@ -39,12 +23,56 @@ public class GameManager : MonoBehaviour
     public bool hasWon;
     public bool gameOver;
 
+    [Header("UI")]
+    public GameObject menu;
+    public bool menuActive = false;
+    public bool menuBlocked = false;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<GameManager>();
+            }
+            return instance;
+        }
+    }
+    void onAwake()
+    {
+        instance = this;
+        DontDestroyOnLoad(this);
+    }
+    public void activarMenu()
+    {
+        if (!menuBlocked)
+        {
+            if (menuActive)
+            {
+                Time.timeScale = 1;
+                menu.SetActive(false);
+                menuActive = false;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                menu.SetActive(true);
+                menuActive = true;
+            }
+        }
+    }
+    public void blockMenu()
+    {
+        menuBlocked = !menuBlocked;
+    }
+
     public void changeToScene(int num)
     {
         hasWon = false;
         gameOver = false;
         hasPowerUp = false;
         StartCoroutine(changeRoutine(num));
+        Time.timeScale = 1;
     }
     IEnumerator changeRoutine(int num)
     {
@@ -61,6 +89,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("reiniciar");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
 }
