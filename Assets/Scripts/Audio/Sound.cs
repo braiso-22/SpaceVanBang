@@ -13,7 +13,7 @@ public class Sound
     public bool playOnInit;
 
     public AudioMixerGroup grupoSonido;
-    [HideInInspector]
+   // [HideInInspector]
     public AudioSource source;
 
 

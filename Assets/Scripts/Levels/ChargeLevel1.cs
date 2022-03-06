@@ -51,7 +51,7 @@ public class ChargeLevel1 : MonoBehaviour
             //  generate random rotation 
             Quaternion rotation = Quaternion.Euler(generateRandomNumber(0, 360), generateRandomNumber(0, 360), generateRandomNumber(0, 360));
             GameObject instantiatedObject = Instantiate(miniAsteroide, position, rotation);
-            instantiatedObject.transform.parent = GameObject.Find("Pequeños").transform;
+            //instantiatedObject.transform.parent = GameObject.Find("Pequeños").transform;
             if (instantiatedObject.GetComponent<InSamePosition>().getSamePosition())
             {
                 Debug.Log("destruyendo");

@@ -79,6 +79,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(num);
     }
+    IEnumerator restartRoutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void exitGame()
     {
         Debug.Log("salir");
@@ -88,7 +93,7 @@ public class GameManager : MonoBehaviour
     public void restartGame()
     {
         Debug.Log("reiniciar");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(restartRoutine());
         Time.timeScale = 1;
     }
 

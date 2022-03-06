@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -22,6 +23,11 @@ public class AudioManager : MonoBehaviour
             if (s.playOnInit)
             {
                 s.source.PlayOneShot(s.sound);
+
+            }
+            if (s.enBucle)
+            {
+                s.source.PlayScheduled(AudioSettings.dspTime + s.sound.length);
             }
         }
     }
