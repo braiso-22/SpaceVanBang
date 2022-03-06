@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public float radiusCheck;
     public LayerMask groundLayer;
     public bool onGravity;
-    
+
 
     // Use this for initialization
     void Awake()
@@ -35,10 +35,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         // set position to the position of the game object with name "AsteroideInicio"
-        transform.position = GameObject.Find("AsteroideInicio").transform.position+new Vector3(-2,10,0);
+        transform.position = GameObject.Find("AsteroideInicio").transform.position + new Vector3(-2, 10, 0);
     }
 
-    
+
 
     // OnEnable and OnDisable methods are called when the gameObject is enabled and disabled
     void OnEnable()
@@ -62,9 +62,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         move();
-        
+
         // get component children of gameobject with name mochila 
-        foreach(Transform child in GameObject.Find("Mochila").transform.GetChild(0).transform){
+        foreach (Transform child in GameObject.Find("Mochila").transform.GetChild(0).transform)
+        {
             // set child renderer to enabled
             child.gameObject.GetComponent<Renderer>().enabled = GameManager.Instance.hasPowerUp;
         }
@@ -93,9 +94,18 @@ public class PlayerController : MonoBehaviour
         Quaternion newRotation = Quaternion.Slerp(rb.rotation, rb.rotation * rightDirection, Time.fixedDeltaTime * 3f); ;
         rb.MoveRotation(newRotation);
         // block velocity if the player is not pressing any movement keys
-        if (isGrounded() && moveInput.x == 0 && moveInput.y == 0)
+        if (isGrounded() && moveInput == Vector2.zero)
         {
             rb.velocity = Vector3.zero;
+        }
+        else if (isGrounded())
+        {
+            AudioManager.Instance.playWithWaitTime("Walk");
+        }
+
+        if (!onGravity && (moveInput != Vector2.zero || flyInput != 0))
+        {
+            AudioManager.Instance.playWithWaitTime("Propulsion");
         }
         //block velocity to a max speed of 20
         if (rb.velocity.magnitude > maxVelocity)

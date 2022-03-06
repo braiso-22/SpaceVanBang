@@ -11,6 +11,7 @@ TagManager:
   - AsteroideMediano
   - powerUp
   - Almacen
+  - roca
   layers:
   - Default
   - TransparentFX

@@ -5,12 +5,28 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    private static AudioManager instance;
+
     public Sound[] sonidos;
     public AudioMixer audioMixer;
     private string master = "VolumenMaster";
     private string musica = "VolumenMusica";
     private string SFX = "VolumenSFX";
+    private float delayTime;
+    private float NextPlay;
 
+
+    public static AudioManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<AudioManager>();
+            }
+            return instance;
+        }
+    }
     void Awake()
     {
         foreach (Sound s in sonidos)
@@ -35,6 +51,16 @@ public class AudioManager : MonoBehaviour
     {
         Sound s = Array.Find(sonidos, sound => sound.name.Equals(name));
         s.source.PlayOneShot(s.sound);
+    }
+    public void playWithWaitTime(String name)
+    {
+        if (Time.time > NextPlay)
+        {
+            NextPlay = delayTime + Time.time;
+            delayTime = UnityEngine.Random.Range(0.25f, 0.5f);
+            Sound s = Array.Find(sonidos, sound => sound.name.Equals(name));
+            s.source.PlayOneShot(s.sound);
+        }
     }
     public void cambiarVolumenMaster(float volumen)
     {
