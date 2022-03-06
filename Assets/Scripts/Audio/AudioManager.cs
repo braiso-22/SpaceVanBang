@@ -52,12 +52,12 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sonidos, sound => sound.name.Equals(name));
         s.source.PlayOneShot(s.sound);
     }
-    public void playWithWaitTime(String name)
+    public void playWithWaitTime(String name, float time1, float time2)
     {
         if (Time.time > NextPlay)
         {
             NextPlay = delayTime + Time.time;
-            delayTime = UnityEngine.Random.Range(0.25f, 0.5f);
+            delayTime = UnityEngine.Random.Range(time1, time2);
             Sound s = Array.Find(sonidos, sound => sound.name.Equals(name));
             s.source.PlayOneShot(s.sound);
         }

@@ -100,12 +100,12 @@ public class PlayerController : MonoBehaviour
         }
         else if (isGrounded())
         {
-            AudioManager.Instance.playWithWaitTime("Walk");
+            AudioManager.Instance.playWithWaitTime("Walk", 0.25f, 0.5f);
         }
 
         if (!onGravity && (moveInput != Vector2.zero || flyInput != 0))
         {
-            AudioManager.Instance.playWithWaitTime("Propulsion");
+            AudioManager.Instance.playWithWaitTime("Propulsion", 0.15f, 0.25f);
         }
         //block velocity to a max speed of 20
         if (rb.velocity.magnitude > maxVelocity)
