@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
         if (!onGravity && (moveInput != Vector2.zero || flyInput != 0))
         {
-            AudioManager.Instance.playWithWaitTime("Propulsion", 0.15f, 0.25f);
+            AudioManager.Instance.playWithWaitTime("Propulsion", 0.85f, 0.85f);
         }
         //block velocity to a max speed of 20
         if (rb.velocity.magnitude > maxVelocity)

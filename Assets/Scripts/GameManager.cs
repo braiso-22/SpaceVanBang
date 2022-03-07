@@ -9,8 +9,6 @@ public class GameManager : MonoBehaviour
 {
 
     private static GameManager instance;
-
-
     [Header("Items")]
     public int itemsToCollect;
     [SerializeField] public int itemsCollected;
@@ -25,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     public GameObject menu;
+    public GameObject winMenu;
     public bool menuActive = false;
     public bool menuBlocked = false;
     public static GameManager Instance
@@ -50,11 +49,14 @@ public class GameManager : MonoBehaviour
             if (menuActive)
             {
                 Time.timeScale = 1;
+
                 menu.SetActive(false);
                 menuActive = false;
+                AudioManager.Instance.Play("boton2");
             }
             else
             {
+                AudioManager.Instance.Play("boton1");
                 Time.timeScale = 0;
                 menu.SetActive(true);
                 menuActive = true;

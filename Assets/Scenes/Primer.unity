@@ -410,6 +410,7 @@ MonoBehaviour:
   hasWon: 0
   gameOver: 0
   menu: {fileID: 376677371}
+  winMenu: {fileID: 0}
   menuActive: 0
   menuBlocked: 0
 --- !u!4 &106294300
@@ -5092,6 +5093,18 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Propulsion
     sound: {fileID: 8300000, guid: 602a67a4b4c23614cb99f25791711532, type: 3}
+    enBucle: 0
+    playOnInit: 0
+    grupoSonido: {fileID: -4406675964459119040, guid: ce2491ca616837c4ead2ca3779896cfa, type: 2}
+    source: {fileID: 0}
+  - name: PickItem
+    sound: {fileID: 8300000, guid: a54f9ebec3d0cea4fb061329dd4061ef, type: 3}
+    enBucle: 0
+    playOnInit: 0
+    grupoSonido: {fileID: -4406675964459119040, guid: ce2491ca616837c4ead2ca3779896cfa, type: 2}
+    source: {fileID: 0}
+  - name: ThrowItem
+    sound: {fileID: 8300000, guid: 9d4e54c2db5a3a848bb868c8065347a2, type: 3}
     enBucle: 0
     playOnInit: 0
     grupoSonido: {fileID: -4406675964459119040, guid: ce2491ca616837c4ead2ca3779896cfa, type: 2}
