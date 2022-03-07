@@ -106,6 +106,28 @@ public class PlayerController : MonoBehaviour
         if (!onGravity && (moveInput != Vector2.zero || flyInput != 0))
         {
             AudioManager.Instance.playWithWaitTime("Propulsion", 0.85f, 0.85f);
+
+            int x = 0;
+            if (flyInput == 1)
+            {
+                x = 0;
+            }
+            else if (flyInput == -1)
+            {
+                x = 180;
+            }
+            if (moveInput.x == 1)
+            {
+                x = 90;
+            }
+            else if (moveInput.x == -1)
+            {
+                x = 270;
+            }
+
+
+            GameObject.Find("humo").transform.rotation = Quaternion.Euler(x, 90, 0);
+            GameObject.Find("humo").GetComponent<ParticleSystem>().Play();
         }
         //block velocity to a max speed of 20
         if (rb.velocity.magnitude > maxVelocity)
