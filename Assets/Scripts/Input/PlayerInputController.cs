@@ -204,6 +204,94 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Camara"",
+            ""id"": ""348d34a3-21d6-43bf-bb25-d2b53fb51213"",
+            ""actions"": [
+                {
+                    ""name"": ""MouseX"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ff1fcc1a-599a-4d05-aa53-8528e5e7223c"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseY"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""61c983bf-18f2-4d1e-a8c5-77a55532e5f1"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightClickHold"",
+                    ""type"": ""Button"",
+                    ""id"": ""e22e3eee-8e21-4b0e-9d37-5baf1846b967"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightClickRelease"",
+                    ""type"": ""Button"",
+                    ""id"": ""207db659-1e0c-41f0-8780-37888fbe55bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b2483aee-ca4a-48ad-80d0-03f27c897516"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7cb4d6ea-bfc9-40f5-8737-a623ae132506"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e354fc3f-3006-41e6-9d2a-ddb52d0fd328"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightClickHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94c689c9-4f57-4665-af5a-5bc9c3c09c1e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightClickRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -217,6 +305,12 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
         // SinGravedad
         m_SinGravedad = asset.FindActionMap("SinGravedad", throwIfNotFound: true);
         m_SinGravedad_Propulsar = m_SinGravedad.FindAction("Propulsar", throwIfNotFound: true);
+        // Camara
+        m_Camara = asset.FindActionMap("Camara", throwIfNotFound: true);
+        m_Camara_MouseX = m_Camara.FindAction("MouseX", throwIfNotFound: true);
+        m_Camara_MouseY = m_Camara.FindAction("MouseY", throwIfNotFound: true);
+        m_Camara_RightClickHold = m_Camara.FindAction("RightClickHold", throwIfNotFound: true);
+        m_Camara_RightClickRelease = m_Camara.FindAction("RightClickRelease", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -362,6 +456,63 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
         }
     }
     public SinGravedadActions @SinGravedad => new SinGravedadActions(this);
+
+    // Camara
+    private readonly InputActionMap m_Camara;
+    private ICamaraActions m_CamaraActionsCallbackInterface;
+    private readonly InputAction m_Camara_MouseX;
+    private readonly InputAction m_Camara_MouseY;
+    private readonly InputAction m_Camara_RightClickHold;
+    private readonly InputAction m_Camara_RightClickRelease;
+    public struct CamaraActions
+    {
+        private @PlayerInputController m_Wrapper;
+        public CamaraActions(@PlayerInputController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MouseX => m_Wrapper.m_Camara_MouseX;
+        public InputAction @MouseY => m_Wrapper.m_Camara_MouseY;
+        public InputAction @RightClickHold => m_Wrapper.m_Camara_RightClickHold;
+        public InputAction @RightClickRelease => m_Wrapper.m_Camara_RightClickRelease;
+        public InputActionMap Get() { return m_Wrapper.m_Camara; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CamaraActions set) { return set.Get(); }
+        public void SetCallbacks(ICamaraActions instance)
+        {
+            if (m_Wrapper.m_CamaraActionsCallbackInterface != null)
+            {
+                @MouseX.started -= m_Wrapper.m_CamaraActionsCallbackInterface.OnMouseX;
+                @MouseX.performed -= m_Wrapper.m_CamaraActionsCallbackInterface.OnMouseX;
+                @MouseX.canceled -= m_Wrapper.m_CamaraActionsCallbackInterface.OnMouseX;
+                @MouseY.started -= m_Wrapper.m_CamaraActionsCallbackInterface.OnMouseY;
+                @MouseY.performed -= m_Wrapper.m_CamaraActionsCallbackInterface.OnMouseY;
+                @MouseY.canceled -= m_Wrapper.m_CamaraActionsCallbackInterface.OnMouseY;
+                @RightClickHold.started -= m_Wrapper.m_CamaraActionsCallbackInterface.OnRightClickHold;
+                @RightClickHold.performed -= m_Wrapper.m_CamaraActionsCallbackInterface.OnRightClickHold;
+                @RightClickHold.canceled -= m_Wrapper.m_CamaraActionsCallbackInterface.OnRightClickHold;
+                @RightClickRelease.started -= m_Wrapper.m_CamaraActionsCallbackInterface.OnRightClickRelease;
+                @RightClickRelease.performed -= m_Wrapper.m_CamaraActionsCallbackInterface.OnRightClickRelease;
+                @RightClickRelease.canceled -= m_Wrapper.m_CamaraActionsCallbackInterface.OnRightClickRelease;
+            }
+            m_Wrapper.m_CamaraActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @MouseX.started += instance.OnMouseX;
+                @MouseX.performed += instance.OnMouseX;
+                @MouseX.canceled += instance.OnMouseX;
+                @MouseY.started += instance.OnMouseY;
+                @MouseY.performed += instance.OnMouseY;
+                @MouseY.canceled += instance.OnMouseY;
+                @RightClickHold.started += instance.OnRightClickHold;
+                @RightClickHold.performed += instance.OnRightClickHold;
+                @RightClickHold.canceled += instance.OnRightClickHold;
+                @RightClickRelease.started += instance.OnRightClickRelease;
+                @RightClickRelease.performed += instance.OnRightClickRelease;
+                @RightClickRelease.canceled += instance.OnRightClickRelease;
+            }
+        }
+    }
+    public CamaraActions @Camara => new CamaraActions(this);
     public interface ISueloActions
     {
         void OnMover(InputAction.CallbackContext context);
@@ -372,5 +523,12 @@ public partial class @PlayerInputController : IInputActionCollection2, IDisposab
     public interface ISinGravedadActions
     {
         void OnPropulsar(InputAction.CallbackContext context);
+    }
+    public interface ICamaraActions
+    {
+        void OnMouseX(InputAction.CallbackContext context);
+        void OnMouseY(InputAction.CallbackContext context);
+        void OnRightClickHold(InputAction.CallbackContext context);
+        void OnRightClickRelease(InputAction.CallbackContext context);
     }
 }
