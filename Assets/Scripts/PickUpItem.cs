@@ -36,8 +36,12 @@ public class PickUpItem : MonoBehaviour
             AudioManager.Instance.Play("ThrowItem");
             GameManager.Instance.hasItem = false;
             GameManager.Instance.itemsCollected++;
-            Debug.Log("Has recuperado" + GameManager.Instance.itemsCollected  +
+            Debug.Log("Has recuperado" + GameManager.Instance.itemsCollected +
              "/" + GameManager.Instance.itemsToCollect);
+            if (GameManager.Instance.itemsCollected == GameManager.Instance.itemsToCollect)
+            {
+                GameManager.Instance.Win();
+            }
         }
         else if (item != null && item.name.Equals("MochilaItem"))
         {

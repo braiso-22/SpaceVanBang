@@ -62,6 +62,11 @@ public class AudioManager : MonoBehaviour
             s.source.PlayOneShot(s.sound);
         }
     }
+    public void Stop(String name)
+    {
+        Sound s = Array.Find(sonidos, sound => sound.name.Equals(name));
+        s.source.Stop();
+    }
     public void cambiarVolumenMaster(float volumen)
     {
         audioMixer.SetFloat(master, volumen);

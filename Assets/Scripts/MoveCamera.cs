@@ -34,14 +34,14 @@ public class MoveCamera : MonoBehaviour
         if (mouseClicked)
         { // Rotate on x axis with clamp
                 rotationX -= mouseInput.y;
-                rotationX = Mathf.Clamp(rotationX, -60f, 60f);
+                rotationX = Mathf.Clamp(rotationX, -33f, 60f);
                 transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         }
-        else
+        /*else
         {
             rotationX=0;
             transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
+        }*/
     }
 
 

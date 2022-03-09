@@ -63,6 +63,18 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void Win()
+    {
+        blockMenu();
+        hasWon = true;
+        AudioManager.Instance.Stop("InGame");
+        AudioManager.Instance.Play("Win");
+        Time.timeScale = 0;
+        winMenu.SetActive(true);
+        menu.SetActive(false);
+        menuActive = false;
+
+    }
     public void blockMenu()
     {
         menuBlocked = !menuBlocked;
