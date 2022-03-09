@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     public GameObject menu;
     public GameObject winMenu;
+    public TextMeshProUGUI winTimer;
     public bool menuActive = false;
     public bool menuBlocked = false;
     public static GameManager Instance
@@ -71,6 +73,8 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("Win");
         Time.timeScale = 0;
         winMenu.SetActive(true);
+        winTimer.text = "Tiempo: " + Timer.Instance.ToMinutes();
+;
         menu.SetActive(false);
         menuActive = false;
 
@@ -87,6 +91,10 @@ public class GameManager : MonoBehaviour
         hasPowerUp = false;
         StartCoroutine(changeRoutine(num));
         Time.timeScale = 1;
+        if (num != 0)
+        {
+            Timer.Instance.ResetTimer();
+        }  
     }
     IEnumerator changeRoutine(int num)
     {
@@ -97,6 +105,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
     public void exitGame()
     {
@@ -109,6 +118,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("reiniciar");
         StartCoroutine(restartRoutine());
         Time.timeScale = 1;
+       Timer.Instance.ResetTimer();
+    }
+    public Timer getTimer()
+    {
+        return Timer.Instance;
     }
 
 }
