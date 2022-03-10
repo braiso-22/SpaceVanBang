@@ -403,9 +403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230447c0456481c438cb2d32af696413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToCollect: 1
+  itemsToCollect: 5
   itemsCollected: 0
-  hasItem: 1
+  hasItem: 0
   lastItemName: 
   hasPowerUp: 0
   hasWon: 0
