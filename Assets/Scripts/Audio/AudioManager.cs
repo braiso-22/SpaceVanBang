@@ -39,18 +39,22 @@ public class AudioManager : MonoBehaviour
             if (s.playOnInit)
             {
                 s.source.PlayOneShot(s.sound);
+                if (s.enBucle)
+                {
+                    s.source.PlayScheduled(AudioSettings.dspTime + s.sound.length);
+                }
+            }
 
-            }
-            if (s.enBucle)
-            {
-                s.source.PlayScheduled(AudioSettings.dspTime + s.sound.length);
-            }
         }
     }
     public void Play(string name)
     {
         Sound s = Array.Find(sonidos, sound => sound.name.Equals(name));
         s.source.PlayOneShot(s.sound);
+        if (s.enBucle)
+        {
+            s.source.PlayScheduled(AudioSettings.dspTime + s.sound.length);
+        }
     }
     public void playWithWaitTime(String name, float time1, float time2)
     {
@@ -60,6 +64,10 @@ public class AudioManager : MonoBehaviour
             delayTime = UnityEngine.Random.Range(time1, time2);
             Sound s = Array.Find(sonidos, sound => sound.name.Equals(name));
             s.source.PlayOneShot(s.sound);
+            if (s.enBucle)
+            {
+                s.source.PlayScheduled(AudioSettings.dspTime + s.sound.length);
+            }
         }
     }
     public void Stop(String name)

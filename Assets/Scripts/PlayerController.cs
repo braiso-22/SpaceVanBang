@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
             }
 
 
-            GameObject.Find("humo").transform.localRotation= Quaternion.Euler(x, 90, 0);
+            GameObject.Find("humo").transform.localRotation = Quaternion.Euler(x, 90, 0);
             GameObject.Find("humo").GetComponent<ParticleSystem>().Play();
         }
         //block velocity to a max speed of 20
@@ -153,12 +153,20 @@ public class PlayerController : MonoBehaviour
         {
             onGravity = true;
         }
+         if (other.gameObject.CompareTag("borde2"))
+        {
+            GameManager.Instance.unAdvert();
+        }
     }
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("gravity"))
         {
             onGravity = false;
+        }
+        if (other.gameObject.CompareTag("borde2"))
+        {
+            GameManager.Instance.Advert();
         }
     }
 

@@ -12,6 +12,8 @@ TagManager:
   - powerUp
   - Almacen
   - roca
+  - borde2
+  - borde1
   layers:
   - Default
   - TransparentFX

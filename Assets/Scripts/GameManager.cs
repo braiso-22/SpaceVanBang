@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     [Header("Items")]
     public int itemsToCollect;
-    [SerializeField] public int itemsCollected;
+    public int itemsCollected;
     public bool hasItem;
     public string lastItemName = "";
     [Header("PowerUps")]
@@ -21,10 +21,13 @@ public class GameManager : MonoBehaviour
     [Header("game")]
     public bool hasWon;
     public bool gameOver;
+    public bool isAdverted;
 
     [Header("UI")]
     public GameObject menu;
     public GameObject winMenu;
+    public GameObject gameOverMenu;
+    public GameObject advertUI;
     public TextMeshProUGUI winTimer;
     public bool menuActive = false;
     public bool menuBlocked = false;
@@ -68,16 +71,42 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         blockMenu();
+        Debug.Log("Has ganado");
         hasWon = true;
         AudioManager.Instance.Stop("InGame");
         AudioManager.Instance.Play("Win");
         Time.timeScale = 0;
         winMenu.SetActive(true);
         winTimer.text = "Tiempo: " + Timer.Instance.ToMinutes();
-;
         menu.SetActive(false);
         menuActive = false;
 
+    }
+    public void Advert()
+    {
+        if (!isAdverted)
+        {
+            isAdverted = true;
+            //AudioManager.Instance.Play("Advert");
+            advertUI.SetActive(isAdverted);
+        }
+    }
+    public void unAdvert()
+    {
+        if (isAdverted)
+        {
+            isAdverted = false;
+            advertUI.SetActive(isAdverted);
+        }
+    }
+    public void GameOver()
+    {
+        blockMenu();
+        AudioManager.Instance.Play("GameOver");
+        Time.timeScale = 0.0001f;
+        gameOverMenu.SetActive(true);
+        menu.SetActive(false);
+        menuActive = true;
     }
     public void blockMenu()
     {
@@ -94,7 +123,7 @@ public class GameManager : MonoBehaviour
         if (num != 0)
         {
             Timer.Instance.ResetTimer();
-        }  
+        }
     }
     IEnumerator changeRoutine(int num)
     {
@@ -105,7 +134,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
+
     }
     public void exitGame()
     {
@@ -118,7 +147,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("reiniciar");
         StartCoroutine(restartRoutine());
         Time.timeScale = 1;
-       Timer.Instance.ResetTimer();
+        Timer.Instance.ResetTimer();
     }
     public Timer getTimer()
     {
