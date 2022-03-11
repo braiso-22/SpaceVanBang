@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("gravity"))
         {
             onGravity = true;
+            other.gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
         if (other.gameObject.CompareTag("borde2"))
         {
@@ -166,6 +167,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("gravity"))
         {
             onGravity = false;
+            other.gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
         if (other.gameObject.CompareTag("borde2"))
         {
