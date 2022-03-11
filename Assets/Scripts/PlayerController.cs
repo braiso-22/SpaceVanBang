@@ -147,7 +147,11 @@ public class PlayerController : MonoBehaviour
         if (isGrounded() && GameManager.Instance.hasPowerUp)
         {
             rb.AddForce(rb.transform.up * 1000f, ForceMode.Impulse);
-            GameManager.Instance.activarTutorial();
+            if (!GameManager.Instance.hasJumped)
+            {
+                GameManager.Instance.hasJumped = true;
+                GameManager.Instance.activarTutorial();
+            }
         }
     }
     bool isGrounded()

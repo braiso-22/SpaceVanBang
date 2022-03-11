@@ -33,10 +33,11 @@ public class PickUpItem : MonoBehaviour
 
         if (enAlmacen && GameManager.Instance.hasItem)
         {
+            GameManager.Instance.activarTutorial();
             AudioManager.Instance.Play("ThrowItem");
             GameManager.Instance.hasItem = false;
             GameManager.Instance.itemsCollected++;
-            GameManager.Instance.activarTutorial();
+            GameManager.Instance.updatePuntuacion();
             Debug.Log("Has recuperado" + GameManager.Instance.itemsCollected +
              "/" + GameManager.Instance.itemsToCollect);
             if (GameManager.Instance.itemsCollected == GameManager.Instance.itemsToCollect)
@@ -50,12 +51,14 @@ public class PickUpItem : MonoBehaviour
             // set hasPowerUp to true and destroy the item
             Debug.Log("Mochila");
             GameManager.Instance.hasPowerUp = true;
+            GameManager.Instance.activarTutorial();
             Destroy(item);
             item = null;
 
         }
         else if (item != null && !GameManager.Instance.hasItem)
         {
+            GameManager.Instance.hasItem = true;
             GameManager.Instance.activarTutorial();
             AudioManager.Instance.Play("PickItem");
             GameManager.Instance.hasItem = true;

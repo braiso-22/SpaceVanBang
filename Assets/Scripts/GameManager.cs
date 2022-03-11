@@ -28,18 +28,22 @@ public class GameManager : MonoBehaviour
     public GameObject winMenu;
     public GameObject gameOverMenu;
     public GameObject advertUI;
-    
+
     public TextMeshProUGUI winTimer;
+    public TextMeshProUGUI puntuacion;
     public bool menuActive = false;
     public bool menuBlocked = false;
     [Header("tutorial")]
-    public bool tutorialAcabado;
     public bool hasMoved;
     public bool hasJumped;
+    public bool itemDevuelto;
+    public bool tutorialAcabado;
     public GameObject tutorial1;
     public GameObject tutorial2;
     public GameObject tutorial3;
+    public GameObject tutorial3_5;
     public GameObject tutorial4;
+    public GameObject tutorial5;
 
     public static GameManager Instance
     {
@@ -76,27 +80,50 @@ public class GameManager : MonoBehaviour
 
     public void activarTutorial()
     {
-        if(hasMoved)
+        if (!tutorialAcabado && hasMoved)
         {
             tutorial1.SetActive(false);
             tutorial2.SetActive(true);
-            if(hasPowerUp)
+            if (hasPowerUp)
             {
                 tutorial2.SetActive(false);
                 tutorial3.SetActive(true);
-                if(hasJumped)
+                if (hasJumped)
                 {
                     tutorial3.SetActive(false);
-                    tutorial4.SetActive(true);
-                    if(hasItem){
-                        tutorial4.SetActive(false);
-                        tutorialAcabado=true;
+                    tutorial3_5.SetActive(true);
+                    StartCoroutine(finishTutorial(tutorial3_5));
+                    if (hasItem)
+                    {
+                        tutorial3_5.SetActive(false);
+                        tutorial4.SetActive(true);
+                        if (!itemDevuelto)
+                        {
+                            StartCoroutine(finishTutorial(tutorial4));
+                        }
+                        else
+                        {
+                            tutorial4.SetActive(false);
+                            tutorial5.SetActive(true);
+                            tutorialAcabado = true;
+                            StartCoroutine(finishTutorial(tutorial5));
+                        }
                     }
-                
+
                 }
             }
         }
-        
+    }
+
+    public void updatePuntuacion()
+    {
+        puntuacion.text = itemsCollected + "/" + itemsToCollect;
+    }
+    IEnumerator finishTutorial(GameObject tutorial)
+    {
+        yield return new WaitForSeconds(6);
+        tutorial.SetActive(false);
+        itemDevuelto = true;
     }
     public void Win()
     {
@@ -150,7 +177,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(changeRoutine(num));
         Time.timeScale = 1;
     }
-    
+
     IEnumerator changeRoutine(int num)
     {
         yield return new WaitForSeconds(0.1f);
