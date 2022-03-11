@@ -2265,11 +2265,25 @@ MonoBehaviour:
   hasPowerUp: 0
   hasWon: 0
   gameOver: 0
-  timer: {fileID: 0}
+  isAdverted: 0
   menu: {fileID: 0}
   winMenu: {fileID: 0}
+  gameOverMenu: {fileID: 0}
+  advertUI: {fileID: 0}
+  winTimer: {fileID: 0}
+  puntuacion: {fileID: 0}
   menuActive: 0
   menuBlocked: 0
+  hasMoved: 0
+  hasJumped: 0
+  itemDevuelto: 0
+  tutorialAcabado: 0
+  tutorial1: {fileID: 0}
+  tutorial2: {fileID: 0}
+  tutorial3: {fileID: 0}
+  tutorial3_5: {fileID: 0}
+  tutorial4: {fileID: 0}
+  tutorial5: {fileID: 0}
 --- !u!4 &1421625161
 Transform:
   m_ObjectHideFlags: 0
@@ -2775,7 +2789,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Juego sin nombre
+  m_text: SpaceVanBang
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5a29b358c0cffdb46abfd15d5f6a296d, type: 2}
   m_sharedMaterial: {fileID: -8589057416602187844, guid: 5a29b358c0cffdb46abfd15d5f6a296d, type: 2}
@@ -2802,7 +2816,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.6
+  m_fontSize: 44.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
