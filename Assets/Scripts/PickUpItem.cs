@@ -36,6 +36,7 @@ public class PickUpItem : MonoBehaviour
             AudioManager.Instance.Play("ThrowItem");
             GameManager.Instance.hasItem = false;
             GameManager.Instance.itemsCollected++;
+            GameManager.Instance.activarTutorial();
             Debug.Log("Has recuperado" + GameManager.Instance.itemsCollected +
              "/" + GameManager.Instance.itemsToCollect);
             if (GameManager.Instance.itemsCollected == GameManager.Instance.itemsToCollect)
@@ -55,6 +56,7 @@ public class PickUpItem : MonoBehaviour
         }
         else if (item != null && !GameManager.Instance.hasItem)
         {
+            GameManager.Instance.activarTutorial();
             AudioManager.Instance.Play("PickItem");
             GameManager.Instance.hasItem = true;
             GameManager.Instance.lastItemName = item.name;

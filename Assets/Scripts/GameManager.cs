@@ -28,11 +28,19 @@ public class GameManager : MonoBehaviour
     public GameObject winMenu;
     public GameObject gameOverMenu;
     public GameObject advertUI;
+    
     public TextMeshProUGUI winTimer;
     public bool menuActive = false;
     public bool menuBlocked = false;
+    [Header("tutorial")]
+    public bool tutorialAcabado;
+    public bool hasMoved;
+    public bool hasJumped;
+    public GameObject tutorial1;
+    public GameObject tutorial2;
+    public GameObject tutorial3;
+    public GameObject tutorial4;
 
-    
     public static GameManager Instance
     {
         get
@@ -43,11 +51,6 @@ public class GameManager : MonoBehaviour
             }
             return instance;
         }
-    }
-    void onAwake()
-    {
-        instance = this;
-        DontDestroyOnLoad(this);
     }
     public void activarMenu()
     {
@@ -69,6 +72,31 @@ public class GameManager : MonoBehaviour
                 menuActive = true;
             }
         }
+    }
+
+    public void activarTutorial()
+    {
+        if(hasMoved)
+        {
+            tutorial1.SetActive(false);
+            tutorial2.SetActive(true);
+            if(hasPowerUp)
+            {
+                tutorial2.SetActive(false);
+                tutorial3.SetActive(true);
+                if(hasJumped)
+                {
+                    tutorial3.SetActive(false);
+                    tutorial4.SetActive(true);
+                    if(hasItem){
+                        tutorial4.SetActive(false);
+                        tutorialAcabado=true;
+                    }
+                
+                }
+            }
+        }
+        
     }
     public void Win()
     {
@@ -107,7 +135,7 @@ public class GameManager : MonoBehaviour
         blockMenu();
         AudioManager.Instance.Play("GameOver");
         StartCoroutine(gameOverRoutine(2));
-        
+
     }
     public void blockMenu()
     {
@@ -121,11 +149,8 @@ public class GameManager : MonoBehaviour
         hasPowerUp = false;
         StartCoroutine(changeRoutine(num));
         Time.timeScale = 1;
-        if (num != 0)
-        {
-            Timer.Instance.ResetTimer();
-        }
     }
+    
     IEnumerator changeRoutine(int num)
     {
         yield return new WaitForSeconds(0.1f);
@@ -145,7 +170,7 @@ public class GameManager : MonoBehaviour
         menu.SetActive(false);
         menuActive = true;
     }
-    
+
     public void exitGame()
     {
         Debug.Log("salir");

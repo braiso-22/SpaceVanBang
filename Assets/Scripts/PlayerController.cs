@@ -59,6 +59,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveInput = playerInput.Suelo.Mover.ReadValue<Vector2>();
+        if (!GameManager.Instance.hasMoved && moveInput != Vector2.zero)
+        {
+            GameManager.Instance.hasMoved = true;
+            GameManager.Instance.activarTutorial();
+        }
         flyInput = playerInput.SinGravedad.Propulsar.ReadValue<float>();
     }
     void FixedUpdate()
@@ -142,6 +147,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded() && GameManager.Instance.hasPowerUp)
         {
             rb.AddForce(rb.transform.up * 1000f, ForceMode.Impulse);
+            GameManager.Instance.activarTutorial();
         }
     }
     bool isGrounded()
