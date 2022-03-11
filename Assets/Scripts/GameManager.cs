@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI winTimer;
     public bool menuActive = false;
     public bool menuBlocked = false;
+
+    
     public static GameManager Instance
     {
         get
@@ -101,12 +103,11 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        unAdvert();
         blockMenu();
         AudioManager.Instance.Play("GameOver");
-        Time.timeScale = 0.0001f;
-        gameOverMenu.SetActive(true);
-        menu.SetActive(false);
-        menuActive = true;
+        StartCoroutine(gameOverRoutine(2));
+        
     }
     public void blockMenu()
     {
@@ -136,6 +137,15 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     }
+    IEnumerator gameOverRoutine(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Time.timeScale = 0.04f;
+        gameOverMenu.SetActive(true);
+        menu.SetActive(false);
+        menuActive = true;
+    }
+    
     public void exitGame()
     {
         Debug.Log("salir");

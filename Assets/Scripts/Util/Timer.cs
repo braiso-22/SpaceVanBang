@@ -27,6 +27,10 @@ public class Timer : MonoBehaviour
         currentTime += Time.deltaTime;
     }
 
+    public int getTime()
+    {
+        return (int)currentTime;
+    }
     public string GetCurrentTime()
     {
         if (currentTime < 10)

@@ -7059,6 +7059,12 @@ MonoBehaviour:
     playOnInit: 0
     grupoSonido: {fileID: -4406675964459119040, guid: ce2491ca616837c4ead2ca3779896cfa, type: 2}
     source: {fileID: 0}
+  - name: GameOver
+    sound: {fileID: 8300000, guid: 14648a13f3d22ee4dad1b149a58247e3, type: 3}
+    enBucle: 0
+    playOnInit: 0
+    grupoSonido: {fileID: -4406675964459119040, guid: ce2491ca616837c4ead2ca3779896cfa, type: 2}
+    source: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: ce2491ca616837c4ead2ca3779896cfa, type: 2}
 --- !u!4 &1771265310
 Transform:
@@ -8570,6 +8576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8049840536886334621, guid: 2391c88e5ab0c7d41a4bd8fb0febd89b, type: 3}
+      propertyPath: explosionParticle
+      value: 
+      objectReference: {fileID: 9125212449759046732, guid: bf50771b7ace4c345b79982f61ee66f8, type: 3}
     - target: {fileID: 8049840537092629342, guid: 2391c88e5ab0c7d41a4bd8fb0febd89b, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1

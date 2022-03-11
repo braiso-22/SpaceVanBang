@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public float radiusCheck;
     public LayerMask groundLayer;
     public bool onGravity;
+    [Header("Particles")]
+    public ParticleSystem explosionParticle;
 
 
     // Use this for initialization
@@ -153,10 +155,11 @@ public class PlayerController : MonoBehaviour
         {
             onGravity = true;
         }
-         if (other.gameObject.CompareTag("borde2"))
+        if (other.gameObject.CompareTag("borde2"))
         {
             GameManager.Instance.unAdvert();
         }
+
     }
     void OnTriggerExit(Collider other)
     {
@@ -168,7 +171,16 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.Advert();
         }
+        if (other.gameObject.CompareTag("borde1"))
+        {
+            explosionParticle.Play();
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            GameObject.Find("Mochila").SetActive(false);
+            GameManager.Instance.GameOver();
+        }
     }
+
+
 
 
 }
