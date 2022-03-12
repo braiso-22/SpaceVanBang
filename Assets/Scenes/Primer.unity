@@ -1117,6 +1117,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1227149873}
     m_Modifications:
+    - target: {fileID: 228050653558163891, guid: d7c504c41960972408fccd271477fa3a, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 228050653558163891, guid: d7c504c41960972408fccd271477fa3a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203062391557477308, guid: d7c504c41960972408fccd271477fa3a, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203062391557477308, guid: d7c504c41960972408fccd271477fa3a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7356540875555148579, guid: d7c504c41960972408fccd271477fa3a, type: 3}
       propertyPath: m_Name
       value: Cohete
@@ -7733,6 +7749,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 838442251}
     m_Modifications:
+    - target: {fileID: 2428710980110994786, guid: 29c02fd2e5b112c4eacf0977dcc1842d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2631131240824920691, guid: 29c02fd2e5b112c4eacf0977dcc1842d, type: 3}
       propertyPath: m_Name
       value: Rueda
