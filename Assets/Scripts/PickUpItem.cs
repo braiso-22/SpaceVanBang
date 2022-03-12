@@ -35,6 +35,7 @@ public class PickUpItem : MonoBehaviour
         {
             GameManager.Instance.activarTutorial();
             AudioManager.Instance.Play("ThrowItem");
+            item = null;
             GameManager.Instance.hasItem = false;
             GameManager.Instance.itemsCollected++;
             GameManager.Instance.updatePuntuacion();
@@ -83,7 +84,10 @@ public class PickUpItem : MonoBehaviour
         if (collider.gameObject.tag == "item")
         {
             Debug.Log("has tocado el item: " + collider.gameObject.name);
-            item = collider.gameObject;
+            if (item == null)
+            {
+                item = collider.gameObject;
+            }
         }
         if (collider.gameObject.tag == "Almacen")
         {
@@ -97,6 +101,7 @@ public class PickUpItem : MonoBehaviour
         if (collider.gameObject.tag == "item")
         {
             Debug.Log("has dejado el item");
+
 
         }
         if (collider.gameObject.tag == "Almacen")
